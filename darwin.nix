@@ -30,7 +30,7 @@
     enable = true;
     # 起步阶段先别自动清理手动装的包，习惯后再设成 "uninstall"
     onActivation.cleanup = "none";
-    brews = [ "ripgrep" "fd" ];
+    brews = [ "ripgrep" "fd" "neovim" ];
     casks = [
       "android-platform-tools"  # adb 安卓调试工具
       "bleunlock"               # BLEUnlock 蓝牙靠近解锁

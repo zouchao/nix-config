@@ -8,6 +8,10 @@
     # 按需往这里加，例如： ripgrep  fd  tree
   ];
 
+  # Neovim 配置 —— 源文件在本仓库 home/nvim/（LazyVim），
+  # 激活时符号链接到 ~/.config/nvim；插件本体仍在 ~/.local/share/nvim
+  xdg.configFile."nvim".source = ./home/nvim;
+
   # shell —— 打开前建议先备份 ~/.zshrc（home-manager 会接管它）
   # programs.zsh.enable = true;
 
