@@ -12,8 +12,15 @@
   # 激活时符号链接到 ~/.config/nvim；插件本体仍在 ~/.local/share/nvim
   xdg.configFile."nvim".source = ./home/nvim;
 
-  # shell —— 打开前建议先备份 ~/.zshrc（home-manager 会接管它）
-  # programs.zsh.enable = true;
+  # zsh —— home-manager 接管 ~/.zshenv / ~/.zprofile / ~/.zshrc。
+  # 三个文件的原内容逐字保存在 home/zsh/ 下（旧版备份在 ~/.zsh*.bak）。
+  # oh-my-zsh 暂用 ~/.oh-my-zsh 手动安装，以后再换 programs.zsh.oh-my-zsh。
+  programs.zsh = {
+    enable = true;
+    envExtra = builtins.readFile ./home/zsh/zshenv;
+    profileExtra = builtins.readFile ./home/zsh/zprofile;
+    initContent = builtins.readFile ./home/zsh/zshrc;
+  };
 
   # git —— 与现有 ~/.gitconfig 保持一致；工作仓库（github.com-align）仍走 ~/.gitconfig-align 的 includeIf
   programs.git = {
