@@ -27,6 +27,17 @@
     fi
   '';
 
+  # Claude Code —— 静态配置收编（脚本 / 自定义 commands / hooks）。
+  # 不收编的：settings.json（switch-profile.sh 和 cc-switch 运行时要覆写）、
+  # settings.*.json 配置变体（含真实 token）、skills/（gstack 自管）、
+  # ~/.claude.json（OAuth）。cc-switch 的数据同理，只收编了 app 本体。
+  home.file.".claude/switch-profile.sh" = {
+    source = ./home/claude/switch-profile.sh;
+    executable = true;
+  };
+  home.file.".claude/commands".source = ./home/claude/commands;
+  home.file.".claude/hooks".source = ./home/claude/hooks;
+
   # zsh —— home-manager 接管 ~/.zshenv / ~/.zprofile / ~/.zshrc。
   # 三个文件的原内容逐字保存在 home/zsh/ 下（旧版备份在 ~/.zsh*.bak）。
   # oh-my-zsh 暂用 ~/.oh-my-zsh 手动安装，以后再换 programs.zsh.oh-my-zsh。
