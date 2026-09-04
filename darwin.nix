@@ -36,6 +36,7 @@
       "bleunlock"               # BLEUnlock 蓝牙靠近解锁
       "bob-app"                 # Bob 翻译
       "cc-switch"               # Claude Code 账号切换
+      "chatgpt"                 # ChatGPT 桌面端（内嵌 Codex；auto_updates 自更新）
       "claude-code"             # Claude Code CLI
       "font-hack-nerd-font"     # Hack Nerd Font
       "vorssaint"               # 菜单栏管理器
