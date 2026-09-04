@@ -6,6 +6,7 @@
   # 个人命令行工具
   home.packages = with pkgs; [
     # 按需往这里加，例如： ripgrep  fd  tree
+    bitwarden-cli   # bw：从 Bitwarden 取秘钥（配合 secrets 同步脚本）
   ];
 
   # Neovim 配置 —— 源文件在本仓库 home/nvim/（LazyVim），
