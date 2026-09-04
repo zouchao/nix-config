@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   # 新版 home-manager 无默认值，必须显式指定（全新配置取最新即可）
   home.stateVersion = "26.11";
@@ -18,6 +18,14 @@
     source = ./scripts/secrets-sync;
     executable = true;
   };
+
+  # 激活时兜底检查：新机器上 secrets.zsh 不存在就提醒恢复（只需跑一次，不自动跑——
+  # secrets-sync 要交互式输 Bitwarden 主密码，不能挂进 sudo 下的激活流程）
+  home.activation.checkSecrets = config.lib.dag.entryAfter [ "writeBoundary" ] ''
+    if [ ! -f "${config.home.homeDirectory}/.config/zsh/secrets.zsh" ]; then
+      $DRY_RUN_CMD echo "⚠️  secrets.zsh 缺失：请运行 secrets-sync 从 Bitwarden 恢复"
+    fi
+  '';
 
   # zsh —— home-manager 接管 ~/.zshenv / ~/.zprofile / ~/.zshrc。
   # 三个文件的原内容逐字保存在 home/zsh/ 下（旧版备份在 ~/.zsh*.bak）。
