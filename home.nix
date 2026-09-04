@@ -13,6 +13,12 @@
   # 激活时符号链接到 ~/.config/nvim；插件本体仍在 ~/.local/share/nvim
   xdg.configFile."nvim".source = ./home/nvim;
 
+  # 个人脚本 —— 放到 ~/.local/bin（已在 PATH 里）
+  home.file.".local/bin/secrets-sync" = {
+    source = ./scripts/secrets-sync;
+    executable = true;
+  };
+
   # zsh —— home-manager 接管 ~/.zshenv / ~/.zprofile / ~/.zshrc。
   # 三个文件的原内容逐字保存在 home/zsh/ 下（旧版备份在 ~/.zsh*.bak）。
   # oh-my-zsh 暂用 ~/.oh-my-zsh 手动安装，以后再换 programs.zsh.oh-my-zsh。

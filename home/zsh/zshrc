@@ -151,7 +151,8 @@ alias gpushthis='git push origin "$(this_branch)"'
 alias gpullthis='git pull origin "$(this_branch)"'
 alias gbm='git branch -m "$(this_branch)"'
 
-# 敏感凭据（数据库密码 / token）已拆分到 ~/.config/zsh/secrets.zsh（已 git 忽略）
+# 敏感凭据（数据库密码 / token）在 ~/.config/zsh/secrets.zsh（git 忽略）
+# 权威来源是 Bitwarden（Secure Note: zsh-secrets），换机/重装后用 `secrets-sync` 恢复
 [ -f "$HOME/.config/zsh/secrets.zsh" ] && source "$HOME/.config/zsh/secrets.zsh"
 
 # configuration zsh completion
