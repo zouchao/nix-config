@@ -39,6 +39,9 @@ require("lazy").setup({
   },
   defaults = { lazy = false, version = false },
   checker = { enabled = true }, -- 自动检查插件更新
+  -- ~/.config/nvim 是指向 nix store 的只读符号链接，锁文件写到可写的仓库里；
+  -- :Lazy update 之后在仓库提交 lazy-lock.json 即可
+  lockfile = vim.env.HOME .. "/nix-config/home/nvim/lazy-lock.json",
   performance = {
     rtp = {
       disabled_plugins = { "gzip", "matchit", "zipPlugin", "netrwPlugin" },
