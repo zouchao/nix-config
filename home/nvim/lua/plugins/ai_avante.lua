@@ -6,10 +6,6 @@
 -- 换用其他 provider（如「公司br」）只需改 providers.bailian 里的三处：
 --   endpoint / model / SQL 里的 WHERE name='...'
 return {
-  -- 临时关闭 blink.cmp 常规补全，避免弹窗和 avante 幽灵文本建议同时出现（冲突试验期）。
-  -- 想恢复：删掉这个 spec 即可（LSP 补全会回来，但两套建议会再次同屏）。
-  { "saghen/blink.cmp", enabled = false },
-
   {
     "yetone/avante.nvim",
     event = "VeryLazy",
@@ -18,13 +14,13 @@ return {
     build = "make", -- 编译原生 Rust 库（avante_templates 等），缺少它会导致 "missing avante_templates" 报错
     opts = {
       provider = "bailian",
-      -- 行内补全：本地 ollama + qwen2.5-coder FIM 小模型（免费、无限次、代码不出机器）
-      -- 聊天/编辑走云端大模型，补全走本地小模型——两种活分开，互不拖累
-      -- 注意：avante 0.3+ 里开关在 behaviour 下，顶层写 auto_suggestions 会被静默忽略
+      -- 【已关闭】avante 的 auto_suggestions 是实验性的"全文件 JSON 编辑建议"协议，
+      -- 不是 Copilot 式行内幽灵文本补全，且 base 模型无法遵循其 JSON 协议（解码报错）。
+      -- 行内补全另行选型（见 README 或问 Claude）。ollama 服务保留，本地模型随时可用。
       -- 接受建议默认键位：<M-l>（Option+L）；下一条 <M-]>，上一条 <M-[>，取消 <C-]>
       auto_suggestions_provider = "ollama",
       behaviour = {
-        auto_suggestions = true,
+        auto_suggestions = false,
       },
       providers = {
         ollama = {
