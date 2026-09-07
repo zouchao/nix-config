@@ -247,3 +247,8 @@ unproxy() {
 	unset all_proxy
 	unset no_proxy
 }
+
+
+proxy(){
+
+}
