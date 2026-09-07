@@ -1,11 +1,26 @@
--- AI 助手：avante.nvim
--- provider 已从 GitHub Copilot（订阅到期）切换为百炼 Bailian（Anthropic 兼容端点）。
--- API key 不落盘、不进 git：通过 cmd: 在运行时从 cc-switch.db 实时读取，
+-- AI 分工：
+--   行内补全（幽灵文本）→ copilot.lua + GitHub Copilot Free 档（每月 2000 次）
+--   聊天/选区编辑      → avante.nvim + 百炼 Bailian（Anthropic 兼容端点）
+--
+-- 百炼 API key 不落盘、不进 git：通过 cmd: 在运行时从 cc-switch.db 实时读取，
 -- cc-switch 里轮换 key / 换模型后，nvim 自动跟随（唯一事实来源仍是 cc-switch）。
 --
 -- 换用其他 provider（如「公司br」）只需改 providers.bailian 里的三处：
 --   endpoint / model / SQL 里的 WHERE name='...'
+--
+-- 历史备注：avante 的 auto_suggestions 是实验性"全文件 JSON 编辑建议"协议，
+-- 不是行内补全，已关闭；本地 ollama 服务保留备用（模型：qwen2.5-coder:1.5b-base）。
 return {
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    opts = {
+      suggestion = { enabled = true, auto_trigger = true, keymap = { accept = "<Tab>" } },
+      panel = { enabled = false },
+    },
+  },
+
   {
     "yetone/avante.nvim",
     event = "VeryLazy",

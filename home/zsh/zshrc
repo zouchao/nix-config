@@ -234,4 +234,16 @@ alias tm='tmux'
 # Added by codebase-memory-mcp install
 export PATH="/Users/zzou/.local/bin:$PATH"
 
-
+unproxy() {
+	unset http_proxy
+	unset HTTP_PROXY
+	unset https_proxy
+	unset HTTPS_PROXY
+	unset ftp_proxy
+	unset FTP_PROXY
+	unset rsync_proxy
+	unset RSYNC_PROXY
+	unset ALL_PROXY
+	unset all_proxy
+	unset no_proxy
+}
