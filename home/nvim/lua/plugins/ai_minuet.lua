@@ -8,7 +8,8 @@
 --   <A-]>  召唤 / 切换下一条     <A-[>  上一条
 --   <A-A>  接受整段              <A-a>  接受一行
 --   <A-z>  接受 N 行（提示输入）  <A-e>  取消
--- 终端里 Option 组合键无效时：iTerm2 → Profiles → Keys → Left Option 设为 Esc+
+-- 终端里 Option 组合键无效时：Ghostty 配置 macos-option-as-alt = left（已在 home/ghostty/config 声明）
+-- 注意 <A-]> / <A-[> 与 copilot 默认 next/prev 撞键，copilot 侧已禁用（见 ai_avante.lua）
 --
 -- 模型升级路径：ollama pull qwen2.5-coder:7b 后改下方 model 即可（质量↑，速度↓）
 return {

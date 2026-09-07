@@ -16,7 +16,18 @@ return {
     cmd = "Copilot",
     event = "InsertEnter",
     opts = {
-      suggestion = { enabled = true, auto_trigger = true, keymap = { accept = "<Tab>" } },
+      suggestion = {
+        enabled = true,
+        auto_trigger = true,
+        keymap = {
+          accept = "<Tab>",
+          -- copilot 默认 next/prev 是 <M-]> / <M-[>，且是 buffer 级映射，
+          -- 会盖住 minuet 的全局同名键位（buffer 级优先级更高）。
+          -- Free 档一次只出一条建议，切换键没用，让位给 minuet 手动补全。
+          next = false,
+          prev = false,
+        },
+      },
       panel = { enabled = false },
     },
   },
