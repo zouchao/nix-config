@@ -8,7 +8,18 @@
     # 按需往这里加，例如： ripgrep  fd  tree
     bitwarden-cli   # bw：从 Bitwarden 取秘钥（配合 secrets 同步脚本）
     ruby_3_4        # 全局默认 Ruby（项目级版本用各自 flake.nix + direnv 覆盖）
+    ollama          # 本地 LLM 服务：nvim 行内补全用（模型存 ~/.ollama，不进 git）
   ];
+
+  # ollama 常驻服务（launchd agent，开机自启）—— avante 行内补全依赖它
+  launchd.agents.ollama = {
+    enable = true;
+    config = {
+      ProgramArguments = [ "${pkgs.ollama}/bin/ollama" "serve" ];
+      RunAtLoad = true;
+      KeepAlive = true;
+    };
+  };
 
   # Neovim 配置 —— 源文件在本仓库 home/nvim/（LazyVim），
   # 激活时符号链接到 ~/.config/nvim；插件本体仍在 ~/.local/share/nvim

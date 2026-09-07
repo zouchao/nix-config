@@ -14,6 +14,16 @@ return {
     build = "make", -- 编译原生 Rust 库（avante_templates 等），缺少它会导致 "missing avante_templates" 报错
     opts = {
       provider = "bailian",
+      -- 行内补全：本地 ollama + qwen2.5-coder FIM 小模型（免费、无限次、代码不出机器）
+      -- 聊天/编辑走云端大模型，补全走本地小模型——两种活分开，互不拖累
+      auto_suggestions = true,
+      auto_suggestions_provider = "ollama",
+      providers = {
+        ollama = {
+          endpoint = "http://127.0.0.1:11434",
+          model = "qwen2.5-coder:1.5b-base",
+        },
+      },
       vendors = {
         bailian = {
           __inherited_from = "claude",
