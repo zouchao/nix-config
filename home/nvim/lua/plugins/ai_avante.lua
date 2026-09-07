@@ -1,12 +1,11 @@
+-- AI 助手：avante.nvim
+-- provider 已从 GitHub Copilot（订阅到期）切换为百炼 Bailian（Anthropic 兼容端点）。
+-- API key 不落盘、不进 git：通过 cmd: 在运行时从 cc-switch.db 实时读取，
+-- cc-switch 里轮换 key / 换模型后，nvim 自动跟随（唯一事实来源仍是 cc-switch）。
+--
+-- 换用其他 provider（如「公司br」）只需改 vendors.bailian 里的三处：
+--   endpoint / model / SQL 里的 WHERE name='...'
 return {
-  {
-    "zbirenbaum/copilot.lua",
-    opts = {
-      suggestion = { enabled = true, auto_trigger = true, keymap = { accept = "<Tab>" } },
-      panel = { enabled = false },
-    },
-  },
-
   {
     "yetone/avante.nvim",
     event = "VeryLazy",
@@ -14,12 +13,13 @@ return {
     version = false,
     build = "make", -- 编译原生 Rust 库（avante_templates 等），缺少它会导致 "missing avante_templates" 报错
     opts = {
-      provider = "copilot",
-      auto_suggestions_provider = "copilot",
-      providers = {
-        claude = {
-          endpoint = "https://api.anthropic.com",
-          model = "claude-sonnet-4-20250514",
+      provider = "bailian",
+      vendors = {
+        bailian = {
+          __inherited_from = "claude",
+          endpoint = "https://llm-8l0qf6cd8ptb2ad3.cn-beijing.maas.aliyuncs.com/apps/anthropic",
+          model = "qwen3.8-max",
+          api_key_name = [[cmd:sqlite3 $HOME/.cc-switch/cc-switch.db "SELECT json_extract(settings_config, '$.env.ANTHROPIC_AUTH_TOKEN') FROM providers WHERE name='Bailian' AND app_type='claude';"]],
           extra_request_body = {
             max_tokens = 4096,
           },
@@ -37,7 +37,6 @@ return {
       "MunifTanjim/nui.nvim",
       "hrsh7th/nvim-cmp",
       "nvim-tree/nvim-web-devicons",
-      "zbirenbaum/copilot.lua",
     },
   },
 }
