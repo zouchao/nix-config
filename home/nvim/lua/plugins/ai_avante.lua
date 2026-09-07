@@ -20,9 +20,12 @@ return {
       provider = "bailian",
       -- 行内补全：本地 ollama + qwen2.5-coder FIM 小模型（免费、无限次、代码不出机器）
       -- 聊天/编辑走云端大模型，补全走本地小模型——两种活分开，互不拖累
+      -- 注意：avante 0.3+ 里开关在 behaviour 下，顶层写 auto_suggestions 会被静默忽略
       -- 接受建议默认键位：<M-l>（Option+L）；下一条 <M-]>，上一条 <M-[>，取消 <C-]>
-      auto_suggestions = true,
       auto_suggestions_provider = "ollama",
+      behaviour = {
+        auto_suggestions = true,
+      },
       providers = {
         ollama = {
           endpoint = "http://127.0.0.1:11434",
