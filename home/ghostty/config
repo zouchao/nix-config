@@ -1,0 +1,22 @@
+copy-on-select = clipboard
+
+background-image = /Users/zouchao/.config/ghostty/bg.jpg
+# 背景图片的填充方式，可选 cover (铺满) 或 contain (适应) 等
+background-image-fit = cover
+
+# 背景图片的对齐方式
+background-image-position = center-right
+
+# 背景图片的透明度（0.0 为完全透明，1.0 为完全不透明）
+background-image-opacity = 0.2
+
+# 窗口透明度（推荐设置透明度，让图片透过显示出来）
+background-opacity = 0.85
+
+# 背景毛玻璃模糊效果（部分 macOS 系统支持）
+background-blur-radius = 20
+
+
+# Option 键行为：左 Option 作为 Alt/Meta 传给终端（nvim 里 <A-]> 等 minuet 键位需要），
+# 右 Option 保留 macOS 原行为（输入 ° © 等特殊字符）
+macos-option-as-alt = left

@@ -25,6 +25,9 @@
   # 激活时符号链接到 ~/.config/nvim；插件本体仍在 ~/.local/share/nvim
   xdg.configFile."nvim".source = ./home/nvim;
 
+  # Ghostty 终端配置（含背景图；原目录备份在 ~/.config/ghostty.bak）
+  xdg.configFile."ghostty".source = ./home/ghostty;
+
   # 个人脚本 —— 放到 ~/.local/bin（已在 PATH 里）
   home.file.".local/bin/secrets-sync" = {
     source = ./scripts/secrets-sync;
