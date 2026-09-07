@@ -7,6 +7,7 @@
   home.packages = with pkgs; [
     # 按需往这里加，例如： ripgrep  fd  tree
     bitwarden-cli   # bw：从 Bitwarden 取秘钥（配合 secrets 同步脚本）
+    ruby_3_4        # 全局默认 Ruby（项目级版本用各自 flake.nix + direnv 覆盖）
   ];
 
   # Neovim 配置 —— 源文件在本仓库 home/nvim/（LazyVim），
@@ -27,16 +28,16 @@
     fi
   '';
 
-  # Claude Code —— 静态配置收编（脚本 / 自定义 commands / hooks）。
-  # 不收编的：settings.json（switch-profile.sh 和 cc-switch 运行时要覆写）、
-  # settings.*.json 配置变体（含真实 token）、skills/（gstack 自管）、
-  # ~/.claude.json（OAuth）。cc-switch 的数据同理，只收编了 app 本体。
-  home.file.".claude/switch-profile.sh" = {
-    source = ./home/claude/switch-profile.sh;
-    executable = true;
-  };
-  home.file.".claude/commands".source = ./home/claude/commands;
+  # Claude Code —— 只收编静态 hooks。
+  # profile 切换统一交给 cc-switch（settings.json 由它运行时写入，不进 nix）；
+  # skills/（gstack 自管）、~/.claude.json（OAuth）、cc-switch.db（含 token）同样不收编。
   home.file.".claude/hooks".source = ./home/claude/hooks;
+
+  # direnv —— cd 进含 .envrc 的目录时自动加载项目级 dev shell（如 Ruby 版本切换）
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;   # 缓存 nix develop 结果，避免每次 cd 都重新 eval
+  };
 
   # zsh —— home-manager 接管 ~/.zshenv / ~/.zprofile / ~/.zshrc。
   # 三个文件的原内容逐字保存在 home/zsh/ 下（旧版备份在 ~/.zsh*.bak）。

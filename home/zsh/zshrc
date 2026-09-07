@@ -228,7 +228,6 @@ alias chromep='~/Code/Custom/raycast-proxy/chrome-proxy.sh'
 
 # Kiro CLI post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
-alias claude-switch='~/.claude/switch-profile.sh'
 alias ccd='claude --dangerously-skip-permissions'
 alias tm='tmux'
 
