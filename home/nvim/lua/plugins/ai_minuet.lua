@@ -1,15 +1,15 @@
 -- 本地 AI 补全：minuet-ai.nvim + ollama（qwen2.5-coder FIM，代码不出机器）
 --
--- 与 copilot.lua 的共存分工：
---   copilot = 自动幽灵文本（Copilot Free，2000 次/月，Tab 接受）
---   minuet  = 手动召唤幽灵文本（auto_trigger_ft 保持空，永不自动触发，不抢戏）
+-- 与 copilot.lua 的共存分工（已对调：minuet 自动、copilot 手动）：
+--   minuet  = 自动幽灵文本（输入即触发，本地 ollama，代码不出机器；<A-A> 接受）
+--   copilot = 手动召唤（auto_trigger=false，插入模式按 <M-.> 主动拉一条；见 ai_avante.lua）
 --
 -- 用法（插入模式）：
---   <A-]>  召唤 / 切换下一条     <A-[>  上一条
+--   输入时自动出现，无需召唤     <A-]> / <A-[>  手动切换下/上一条（n_completions=1，基本用不上）
 --   <A-A>  接受整段              <A-a>  接受一行
 --   <A-z>  接受 N 行（提示输入）  <A-e>  取消
 -- 终端里 Option 组合键无效时：Ghostty 配置 macos-option-as-alt = left（已在 home/ghostty/config 声明）
--- 注意 <A-]> / <A-[> 与 copilot 默认 next/prev 撞键，copilot 侧已禁用（见 ai_avante.lua）
+-- 注：copilot 手动触发键已改用 <M-.>，不再与 minuet 的 <A-]> / <A-[> 撞键
 --
 -- 模型升级路径：ollama pull qwen2.5-coder:7b 后改下方 model 即可（质量↑，速度↓）
 return {
@@ -35,7 +35,7 @@ return {
         },
       },
       virtualtext = {
-        auto_trigger_ft = {}, -- 关键：不自动触发，把自动补全舞台留给 copilot
+        auto_trigger_ft = { "*" }, -- 全部文件类型自动触发（输入即出幽灵文本）；只想部分类型可写 { "python", "lua", "go" }
         keymap = {
           accept = "<A-A>",
           accept_line = "<A-a>",

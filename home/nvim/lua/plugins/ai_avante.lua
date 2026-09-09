@@ -1,6 +1,7 @@
 -- AI 分工：
---   行内补全（幽灵文本）→ copilot.lua + GitHub Copilot Free 档（每月 2000 次）
---   聊天/选区编辑      → avante.nvim + 百炼 Bailian（Anthropic 兼容端点）
+--   行内补全·自动（幽灵文本）→ minuet-ai.nvim + 本地 ollama（输入即触发，见 ai_minuet.lua）
+--   行内补全·手动召唤        → copilot.lua + GitHub Copilot Free 档（每月 2000 次，<M-.> 触发）
+--   聊天/选区编辑            → avante.nvim + 百炼 Bailian（Anthropic 兼容端点）
 --
 -- 百炼 API key 不落盘、不进 git：通过 cmd: 在运行时从 cc-switch.db 实时读取，
 -- cc-switch 里轮换 key / 换模型后，nvim 自动跟随（唯一事实来源仍是 cc-switch）。
@@ -18,13 +19,17 @@ return {
     opts = {
       suggestion = {
         enabled = true,
-        auto_trigger = true,
+        auto_trigger = false, -- 改为手动：不再自动出建议，把自动补全舞台让给本地 minuet(ollama)
         keymap = {
           accept = "<Tab>",
-          -- copilot 默认 next/prev 是 <M-]> / <M-[>，且是 buffer 级映射，
-          -- 会盖住 minuet 的全局同名键位（buffer 级优先级更高）。
-          -- Free 档一次只出一条建议，切换键没用，让位给 minuet 手动补全。
-          next = false,
+          -- 手动触发键：插入模式按 <M-.>（左 Option+句号）主动拉一条 copilot 建议
+          --（M.next 会即时请求，auto_trigger=false 时这就是召唤入口）。
+          -- 选 <M-.> 而非默认 <M-]>，是为避开 minuet 的 <A-]>（M 与 A 同为 Alt 键）。
+          -- 备注：原先试的 <M-CR>(Alt+回车) 在本机 Ghostty 下未能作为独立按键送达，故改用 <M-.>
+          --（Alt+字母/标点这条路本机已验证可用，见 minuet 的 <A-A>/<A-e> 等）。
+          -- <M-.> 未被 LazyVim 占用；copilot panel 默认用的是 <M-CR>，且此处 panel.enabled=false，不冲突。
+          -- Free 档一次只出一条建议，prev 无用，保持关闭。
+          next = "<M-.>",
           prev = false,
         },
       },
