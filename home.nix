@@ -9,6 +9,7 @@
     bitwarden-cli   # bw：从 Bitwarden 取秘钥（配合 secrets 同步脚本）
     ruby_3_4        # 全局默认 Ruby（项目级版本用各自 flake.nix + direnv 覆盖）
     ollama          # 本地 LLM 服务：nvim 行内补全用（模型存 ~/.ollama，不进 git）
+    pi-coding-agent # pi：终端 coding agent（npm 的 @earendil-works/pi-coding-agent，nixpkgs 已收录）
   ];
 
   # ollama 常驻服务（launchd agent，开机自启）—— avante 行内补全依赖它
