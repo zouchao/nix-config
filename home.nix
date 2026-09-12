@@ -7,7 +7,6 @@
   home.packages = with pkgs; [
     # 按需往这里加，例如： ripgrep  fd  tree
     bitwarden-cli   # bw：从 Bitwarden 取秘钥（配合 secrets 同步脚本）
-    ruby_3_4        # 全局默认 Ruby（项目级版本用各自 flake.nix + direnv 覆盖）
     ollama          # 本地 LLM 服务：nvim 行内补全用（模型存 ~/.ollama，不进 git）
     pi-coding-agent # pi：终端 coding agent（npm 的 @earendil-works/pi-coding-agent，nixpkgs 已收录）
     thaw            # Thaw.app：macOS 26 菜单栏管理工具（GUI 应用，open ~/.nix-profile/Applications/Thaw.app 启动）
