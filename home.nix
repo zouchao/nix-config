@@ -64,6 +64,16 @@
     initContent = builtins.readFile ./home/zsh/zshrc;
   };
 
+  # kiro-cli —— AWS Kiro 的终端 agent（unfree，放行见 darwin.nix）。
+  # 用官方 home-manager 模块做声明式 shell 集成：它把 `eval "$(kiro-cli init zsh pre)"`
+  # 通过 mkBefore 插到 .zshrc 最前、post 插到最后（mkAfter），正好满足 `kiro-cli doctor`
+  # 对「pre 必须在最前」的检查——而旧的 `kiro-cli integrations install dotfiles` 想直接
+  # 改写 ~/.zshrc，但那是 nix store 只读符号链接，必然 Permission denied，别用那条路。
+  programs.kiro-cli = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   # git —— 与现有 ~/.gitconfig 保持一致；工作仓库（github.com-align）仍走 ~/.gitconfig-align 的 includeIf
   programs.git = {
     enable = true;

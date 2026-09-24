@@ -1,6 +1,6 @@
 
-# Kiro CLI pre block. Keep at the top of this file.
-[[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh"
+# Kiro CLI 集成不写在这里 —— 由 home.nix 的 programs.kiro-cli 模块声明式注入
+# （init zsh pre 排 .zshrc 最前、post 排最后，旧式 dotfiles 块已于 2026-09 移除）
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -226,8 +226,6 @@ alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 # raycast-proxy: VPN 抢占主服务时，先 ⌘Q 退出 Chrome 再执行 chromep
 alias chromep='~/Code/Custom/raycast-proxy/chrome-proxy.sh'
 
-# Kiro CLI post block. Keep at the bottom of this file.
-[[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
 alias ccd='claude --dangerously-skip-permissions'
 alias tm='tmux'
 

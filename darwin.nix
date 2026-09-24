@@ -1,5 +1,12 @@
-{ ... }:
+{ lib, ... }:
 {
+  # kiro-cli 是 unfree（AWS 专有软件）——按需放行单个包，不全局放开 allowUnfree
+  # （home-manager 用 useGlobalPkgs，pkgs 与系统共用，所以配在这里即可全局生效）
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "kiro-cli"
+    "kiro-cli-unwrapped" # wrapped 版构建时会引用 unwrapped 本体，一并放行
+  ];
+
   # 声明系统用户 —— home-manager 从这里推导 home 目录（不声明会是 null）
   users.users.zzou = {
     name = "zzou";
