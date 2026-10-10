@@ -81,6 +81,17 @@ return {
       "MunifTanjim/nui.nvim",
       "hrsh7th/nvim-cmp",
       "nvim-tree/nvim-web-devicons",
+      -- avante 自 a70bdaa(feat: introduce mega.cmdparse) 起，在 plugin/avante.lua 加载阶段
+      -- 硬 require("mega.cmdparse") 来解析 :Avante 子命令，缺了就整个插件加载失败。
+      -- 该依赖只写在 avante.nvim-scm-1.rockspec 里：lazy 本来会自动识别成 build = "rockspec"
+      -- 并用 luarocks 装进 ~/.local/share/nvim/lazy-rocks/avante.nvim/，
+      -- 但本 spec 的 build = "make"（编译 Rust 原生库）优先级更高，把 rockspec 构建顶掉了，
+      -- 于是 lazy-rocks 永远不会生成 → 启动即报 module 'mega.cmdparse' not found。
+      -- 按 avante README 的 lazy.nvim 写法，直接当普通插件依赖装（纯 Lua，
+      -- 不需要 luarocks/hererocks，也不影响上面的 make 构建）。
+      -- build = false：显式告诉 lazy 别把这两个也当 rockspec 插件去跑 luarocks。
+      { "ColinKennedy/mega.cmdparse", build = false, dependencies = { "ColinKennedy/mega.logging" } },
+      { "ColinKennedy/mega.logging", build = false },
     },
   },
 }
